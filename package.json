@@ -9,10 +9,10 @@
     "build": "sh ./bin/build.sh",
     "start": "ng serve --port 5200",
     "prepub:dev": "npm run build",
-    "pub:dev": "npm publish dist",
+    "pub:dev": "npm publish dist --access public --tag dev",
     "postpub:dev": "npm version prerelease && git push && git push --tags",
     "prepub": "npm run build",
-    "pub": "npm publish dist",
+    "pub": "npm publish dist --access public",
     "postpub": "npm version patch && git push && git push --tags"
   },
   "ngPackage": {
