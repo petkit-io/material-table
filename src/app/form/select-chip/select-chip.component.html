@@ -9,13 +9,13 @@
       {{chip.text}}
       <mat-icon matChipRemove *ngIf="chip.removable === undefined ? removable : chip.removable">cancel</mat-icon>
     </mat-chip>
+    <!-- todo: matAutocompleteDisabled -->
     <input
       #filterInput
       (focus)="onFocusInput()"
       [placeholder]="placeholder"
       [formControl]="inputCtrl"
       [matAutocomplete]="auto"
-      [matAutocompleteDisabled]="!addable"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="addOnBlur"
