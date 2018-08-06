@@ -1,6 +1,6 @@
 {
   "name": "@petkit-io/material-table",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "material table",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,12 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "build": "sh ./bin/build.sh",
     "start": "ng serve --port 5200",
-    "prepub:dev": "npm version prerelease && npm run build",
+    "prepub:dev": "npm run build",
     "pub:dev": "npm publish dist --access public --tag dev",
-    "postpub:dev": "git push && git push --tags",
-    "prepub": "npm version patch && npm run build",
+    "postpub:dev": "npm version prerelease && git push && git push --tags",
+    "prepub": "npm run build",
     "pub": "npm publish dist --access public",
-    "postpub": "git push && git push --tags"
+    "postpub": "npm version patch && git push && git push --tags"
   },
   "ngPackage": {
     "lib": {
