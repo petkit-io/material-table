@@ -1,0 +1,20 @@
+@mixin _mat-card-check-modal-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .component-card-check-modal {
+    &__icon {
+      font-size: 56px;
+      z-index: 11;
+    }
+
+    &__text {
+      color: mat-color($primary, 300);
+      font-size: 24px;
+    }
+  }
+}
+

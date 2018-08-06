@@ -1,0 +1,55 @@
+<!-- <ng-container *ngIf="editable"> -->
+<!--   <mat-select-ext -->
+<!--     [style.display]="option.type === 'select' ? 'block' : 'none'" -->
+<!--     [(value)]="formValue" -->
+<!--     [option]="option.formOption" -->
+<!--     (textChange)="setText($event)" -->
+<!--   ></mat-select-ext> -->
+<!--   <mat-slide-toggle-ext -->
+<!--     [style.display]="option.type === 'slide-toggle' ? 'block' : 'none'" -->
+<!--     [(value)]="formValue" -->
+<!--     [option]="option.formOption" -->
+<!--     (textChange)="setText($event)" -->
+<!--   ></mat-slide-toggle-ext> -->
+<!--   <mat-input-ext -->
+<!--     [style.display]="option.type === 'input' ? 'block' : 'none'" -->
+<!--     [(value)]="formValue" -->
+<!--     [option]="option.formOption" -->
+<!--     (textChange)="setText($event)" -->
+<!--   ></mat-input-ext> -->
+<!-- </ng-container> -->
+
+<!-- <ng-container *ngIf="editable"> -->
+<div [style.display]="editable ? 'block' : 'none'">
+  <ng-container [ngSwitch]="option.type">
+    <ng-container *ngSwitchCase="'select'">
+      <mat-select-ext
+        [(value)]="formValue"
+        [option]="option.formOption"
+      ></mat-select-ext>
+    </ng-container>
+    <ng-container *ngSwitchCase="'slide-toggle'">
+      <mat-slide-toggle-ext
+        [(value)]="formValue"
+        [option]="option.formOption"
+      ></mat-slide-toggle-ext>
+    </ng-container>
+    <ng-container *ngSwitchCase="'input'">
+      <mat-input-ext
+        [(value)]="formValue"
+        [option]="option.formOption"
+      ></mat-input-ext>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <mat-input-ext
+        [(value)]="formValue"
+        [option]="option.formOption"
+      ></mat-input-ext>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div [style.display]="editable ? 'none' : 'block'">
+  {{_text}}
+</div>
+

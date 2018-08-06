@@ -1,0 +1,285 @@
+@import '../text/text';
+
+@mixin _mat-shortcut-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $error: mat-palette($mat-red);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  // layout
+  .flex-vc {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  .flex-sb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fd {
+    &-c {
+      flex-direction: column;
+    }
+  }
+
+  .fg-1 {
+    flex-grow: 1;
+  }
+
+  .full {
+    display: block;
+    height: 100%;
+  }
+
+  .float {
+    &-r {
+      float: right;
+    }
+  }
+
+  .overflow {
+    &-auto {
+      overflow: auto;
+
+      &--important {
+        overflow: auto !important;
+      }
+    }
+  }
+
+  .abs-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    z-index: 1;
+  }
+
+  // box-shadow
+  .shadow {
+    &-p {
+      box-shadow: 0 2px 4px 0 #9a9a9a;
+    }
+  }
+
+  // display
+  .display {
+    &-ib {
+      display: inline-block;
+    }
+
+    &-b {
+      display: block;
+    }
+  }
+
+  // position
+  .position {
+    &-r {
+      position: relative;
+    }
+  }
+
+  // border
+  .border {
+    &-p[class] {
+      border: 1px solid mat-color($primary);
+    }
+  }
+
+  .radius {
+    &-p {
+      border-radius: 2px;
+    }
+
+    &-circle {
+      border-radius: 90%;
+    }
+  }
+
+
+  // width
+  .w100 {
+    width: 100%;
+  }
+
+  .w-40 {
+    width: 40px;
+  }
+
+  .h100 {
+    height: 100%;
+  }
+
+  .h-40 {
+    height: 40px;
+  }
+
+  // cursor
+  .cursor {
+    &-p {
+      cursor: pointer;
+    }
+  }
+
+  // padding
+  @each $prefix in p {
+    @for $i from 0 through 20 {
+      $j: $i * 8;
+
+      .#{$prefix}-#{$j} {
+        padding: $j + px;
+      }
+
+      .#{$prefix}t-#{$j} {
+        padding-top: $j + px;
+      }
+
+      .#{$prefix}r-#{$j} {
+        padding-right: $j + px;
+      }
+
+      .#{$prefix}b-#{$j} {
+        padding-bottom: $j + px;
+      }
+
+      .#{$prefix}l-#{$j} {
+        padding-left: $j + px;
+      }
+    }
+  }
+
+  // margin
+  @each $prefix in m {
+    @for $i from 0 through 20 {
+      $j: $i * 8;
+
+      .#{$prefix}-#{$j} {
+        margin: $j + px;
+      }
+
+      .#{$prefix}t-#{$j} {
+        margin-top: $j + px;
+      }
+
+      .#{$prefix}r-#{$j} {
+        margin-right: $j + px;
+      }
+
+      .#{$prefix}b-#{$j} {
+        margin-bottom: $j + px;
+      }
+
+      .#{$prefix}l-#{$j} {
+        margin-left: $j + px;
+      }
+    }
+  }
+
+  // text
+  .color {
+    &-p {
+      color: mat-color($primary);
+    }
+
+    &-a {
+      color: mat-color($accent);
+    }
+
+    &-w {
+      color: mat-color($warn);
+    }
+
+    &-s {
+      color: #8cd23c;
+    }
+
+    &-e {
+      color: mat-color($error);
+    }
+
+    &-white {
+      color: white;
+    }
+
+    &-hint {
+      color: map-get($foreground, hint-text);
+    }
+
+    &-icon {
+      color: map-get($foreground, icon);
+    }
+
+    &-text {
+      color: map-get($foreground, text);
+    }
+
+    &-text-s {
+      color: map-get($foreground, secondary-text);
+    }
+
+    &-title-sub {
+      color: #575d6a;
+    }
+  }
+
+  .bc {
+    &-p {
+      background-color: mat-color($primary);
+    }
+
+    &-a {
+      background-color: mat-color($accent);
+    }
+
+    &-w {
+      background-color: mat-color($warn);
+    }
+
+    &-white {
+      background-color: white;
+    }
+
+    &-e {
+      background-color: mat-color($error);
+    }
+
+    &-overlay {
+      background-color: rgba(0, 0, 0, .5);
+    }
+  }
+
+  .ta {
+    &-c {
+      text-align: center;
+    }
+
+    &-r {
+      text-align: right;
+    }
+  }
+
+  @for $i from 12 through 56 {
+    .fs-#{$i} {
+      font-size: $i + px;
+    }
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+
+    &-sub {
+      @extend .color-title-sub;
+
+      @include text-title();
+    }
+  }
+}

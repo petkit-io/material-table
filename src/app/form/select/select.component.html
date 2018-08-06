@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select [(value)]="value" [placeholder]="placeholder">
+    <mat-option *ngFor="let _option of _options" (click)="onOptionClick(_option)" [value]="_option[valueKey]">
+      {{ _option[textKey] }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

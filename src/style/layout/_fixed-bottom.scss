@@ -1,0 +1,15 @@
+@mixin _mat-fixed-bottom-theme($theme) {
+  .component-layout-fixed-bottom {
+    &__container {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+
+    &__main {
+      overflow: hidden;
+      flex-grow: 1;
+
+      display: flex;
+    }
+  }
+}

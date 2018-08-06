@@ -1,0 +1,63 @@
+@mixin _mat-upload-theme ($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .component-mat-upload__image {
+    &-container {
+      width: 100%;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: stretch;
+    }
+
+    &-image-container {
+      border: 1px solid map-get($foreground, divider);
+      border-radius: 2px;
+      margin: 4px;
+      padding: 4px;
+      position: relative;
+      height: 62px;
+    }
+
+    &-image-remove {
+      position: absolute;
+      right: -8px;
+      top: -8px;
+
+      width: 16px !important;
+      height: 16px !important;
+      border-radius: 90%;
+      font-size: 16px;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: map-get($background, hover);
+      }
+    }
+
+    &-image {
+      height: 100%;
+    }
+
+    &-button {
+      width: 62px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .component-mat-upload__image-button-icon {
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+
+        color: map-get($foreground, hint-text);
+      }
+    }
+  }
+}
+

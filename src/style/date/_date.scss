@@ -1,0 +1,21 @@
+@import '~ngx-bootstrap/datepicker/bs-datepicker.css';
+
+@mixin _bs-date($theme) {
+  .component-date {
+    &__container {
+      &--right {
+        position: absolute;
+        top: 24px;
+        right: -130px;
+      }
+
+      .ng-star-inserted {
+        white-space: nowrap;
+      }
+    }
+
+    &__input {
+      width: 200px;
+    }
+  }
+}

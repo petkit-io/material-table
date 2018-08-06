@@ -1,0 +1,61 @@
+@mixin _angular-form-theme($theme) {
+  .row .mat-form-field-infix {
+    width: 100%;
+  }
+}
+
+@mixin _angular-tab-theme($theme) {
+  .mat-tab-labels {
+    .mat-tab-label {
+      min-width: 64px;
+      padding: 0 16px;
+    }
+  }
+}
+
+@mixin _angular-button-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-button.mat-button-sm,
+  .mat-raised-button.mat-button-sm,
+  .mat-icon-button.mat-button-sm {
+    $size: 20px;
+
+    line-height: $size + 4px;
+    padding: 0 8px;
+    min-width: $size * 2 + 30px;
+
+    .mat-icon {
+      height: $size;
+      width: $size;
+      font-size: $size;
+    }
+  }
+
+  .mat-button.mat-button-border,
+  .mat-raised-button.mat-button-border {
+    $size: 20px;
+
+    border: 1px solid mat-color($primary);
+    line-height: $size + 4px;
+    padding: 0 8px;
+    min-width: $size * 2 + 10px;
+
+    .mat-icon {
+      height: $size;
+      width: $size;
+      font-size: $size;
+    }
+  }
+}
+
+@mixin _angular-material-theme($theme) {
+  @include _angular-form-theme($theme);
+  @include _angular-tab-theme($theme);
+  @include _angular-button-theme($theme);
+}
+

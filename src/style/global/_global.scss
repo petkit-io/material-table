@@ -1,0 +1,5 @@
+@mixin _mat-global-theme($theme) {
+  * {
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,243 @@
+<div class="component-mat-table__container">
+  <!-- 搜索 -->
+  <div class="component-mat-table__addon-container">
+    <div *ngIf="option.addon.title" class="component-mat-table__addon-title-container">
+      {{option.addon.title}}
+    </div>
+    <!-- <mat-form-field class="component-mat-table__addon-search" *ngIf="!option.addon.search.hidden"> -->
+    <!--   <span matPrefix>{{option.addon.search.prefix}}</span> -->
+    <!--   <input matInput [value]="option.addon.search.value" placeholder="{{option.addon.search.placeholder}}" [formControl]="matTableSearch"/> -->
+    <!-- </mat-form-field> -->
+    <ng-container class="component-mat-table__addon-search" *ngIf="!option.addon.search.hidden">
+      <!-- <mat-input-ext -->
+      <!--   [(value)]="searchValue" -->
+      <!--   [option]="option.addon.search" -->
+      <!--   (valueChange)="onSearchValueChange($event)" -->
+      <!-- > -->
+      <!-- </mat-input-ext> -->
+      <mat-form-field>
+        <!-- <mat-icon class="color-icon" matPrefix>search</mat-icon> -->
+        <mat-label><mat-icon>search</mat-icon> {{ option.addon.search.placeholder }}</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchValue"
+          [disabled]="option.addon.search.disabled"
+        />
+      </mat-form-field>
+    </ng-container>
+
+
+    <ng-container *ngFor="let button of option.addon.buttons">
+      <button
+        class="component-mat-table__addon-button mat-button-sm"
+        mat-raised-button
+        [disabled]="button.disabled"
+        [color]="button.color || 'primary'"
+        (click)="button.onClick && button.onClick($event)"
+      >
+        <mat-icon *ngIf="button.icon">{{button.icon}}</mat-icon>
+        {{button.text}}
+      </button>
+    </ng-container>
+
+
+
+    <!-- <ng-container *ngIf="!option.addon.export.hidden"> -->
+    <div class="component-mat-table__addon-right-container">
+      <ng-container *ngFor="let filter of option.addon.filters">
+        <mat-select-search
+          *ngIf="!filter.hidden"
+          class="component-mat-table__addon-right-filter"
+          [data]="filter.data"
+          [placeholder]="filter.placeholder"
+          [multiple]="filter.multiple"
+          [(value)]="filter.value"
+          (valueChange)="onFiltersChange(filter.valueChange, $event)"
+        ></mat-select-search>
+      </ng-container>
+
+      <ng-container *ngIf="!option.addon.date.hidden">
+        <bs-date-range
+          class="component-mat-table__addon-date"
+          [type]="option.addon.date.type"
+          [bsConfig]="option.addon.date.bsConfig"
+          [(value)]="option.addon.date.value"
+          (valueChange)="onDateChange($event)"
+          placeholder="请选择时间"
+        ></bs-date-range>
+      </ng-container>
+
+      <div class="component-mat-table__addon-right-cols-container">
+        <mat-select-search
+          [data]="allColumns"
+          [placeholder]="'显示列'"
+          [multiple]="true"
+          [(value)]="displayedColumns"
+        ></mat-select-search>
+      </div>
+
+      <div *ngIf="!option.addon.exports.hidden" class="component-mat-table__addon-right-btn-container">
+        <button mat-button color="primary" class="mat-button-border" (click)="onClickExportExcelAll()">导出</button>
+      </div>
+    </div>
+    <!-- </ng-container> -->
+  </div>
+
+  <!-- 表格 -->
+  <div class="component-mat-table__table-container {{!option.table.select.disabled ? 'component-mat-table__table-container--selectable' : ''}}" matSort>
+    <!-- material表格 -->
+    <!-- 先列再行 -->
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container *ngIf="!option.table.select.disabled" [matColumnDef]="option.table.select.col">
+        <mat-header-cell
+          class="component-mat-table__table-header"
+          *matHeaderCellDef
+        >
+          {{option.table.select.header}}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+        >
+        <div (click)="onClickSelectableRow({row: element})" class="abs-overlay" mat-ripple></div>
+          <mat-checkbox color="primary" [(ngModel)]="element[option.table.select.col]">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let col of option.table.colDef">
+        <ng-container [ngSwitch]="col.type" [matColumnDef]="col.col">
+          <ng-container *ngSwitchCase="_TableColDefType.BTN_OPT">
+            <mat-header-cell
+              class="component-mat-table__table-header"
+              *matHeaderCellDef
+              [style.flexGrow]="col.menus.length"
+            >
+              {{col.header}}
+            </mat-header-cell>
+
+            <mat-cell
+              #btnOptCell
+              *matCellDef="let element"
+              [style.flexGrow]="col.menus.length"
+            >
+              <div
+                class="component-mat-table__table-btn-opt-cell"
+                *ngIf="!element._isCalcRow"
+              >
+                <ng-container
+                  *ngFor="let item of col.menus"
+                >
+                  <button
+                    #btnOptBtn
+                    *ngIf= "_isFunction(item.hidden) ? !item.hidden({row: element}) : !item.hidden"
+                    mat-raised-button
+                    class="component-mat-table__table-btn-opt-btn mat-button-sm"
+                    [ngClass]="item.className"
+                    [color]="item.color"
+                    [disabled]="item.disabled"
+                    (click)="item.onClick && item.onClick({btn:btnOptBtn, cell: btnOptCell, row: element, col: col, table: this, event: $event, stateChange: changes.value})"
+                  >
+                    <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+                    {{item.text}}
+                  </button>
+                </ng-container>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <ng-container *ngSwitchCase="_TableColDefType.EDIT">
+            <mat-header-cell
+              class="component-mat-table__table-header"
+              *matHeaderCellDef
+            >
+              {{col.header}}
+              <span class="component-mat-table__table-col-sort-container" *ngIf="col.sortable" (click)="onClickSort({col: col, event: $event})">
+                <!-- <mat-icon class="component-mat-table__table-col-sort">sort</mat-icon> -->
+                <i class="PETKIT icon-sortleft"></i>
+                <i
+                  class="PETKIT icon-sortright component-mat-table__table-col-sort-arrow"
+                  [style.opacity]="option.table.sort[col.col] === undefined ? '0' : '1'"
+                  [style.transform]="option.table.sort[col.col] === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)'"
+                ></i>
+              </span>
+            </mat-header-cell>
+            <mat-cell
+              class="component-mat-table__table-edit-cell"
+              *matCellDef="let element"
+            >
+              <mat-edit
+                #editOptEdit
+                *ngIf="!element._isCalcRow"
+                [option]="col.editOption"
+                [type]="col.editOption.type"
+                [(value)]="element[col.col]"
+                [(formValue)]="element['_' + col.col + 'FormValue']"
+                [(editable)]="element._editable"
+                [override]="element._override"
+                (valueChange)="col.valueChange && col.valueChange({edit:editOptEdit, row: element, col: col, table: this, event: $event})"
+                (formValueChange)="col.formValueChange && col.formValueChange({edit:editOptEdit, row: element, col: col, table: this, event: $event})"
+                (textChange)="element['_' + col.col + 'TextValue'] = $event"
+              >
+              </mat-edit>
+                <ng-container *ngIf="element._isCalcRow">
+                  {{element[col.col]}}
+                </ng-container>
+            </mat-cell>
+          </ng-container>
+          <div *ngSwitchDefault>
+            <mat-header-cell
+              class="component-mat-table__table-header"
+              *matHeaderCellDef
+            >
+              {{col.header}}
+              <span class="component-mat-table__table-col-sort-container" *ngIf="col.sortable" (click)="onClickSort({col: col, event: $event})">
+                <!-- <mat-icon class="component-mat-table__table-col-sort">sort</mat-icon> -->
+                <i class="PETKIT icon-sortleft"></i>
+                <i
+                  class="PETKIT icon-sortright component-mat-table__table-col-sort-arrow"
+                  [style.opacity]="option.table.sort[col.col] === undefined ? '0' : '1'"
+                  [style.transform]="option.table.sort[col.col] === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)'"
+                ></i>
+              </span>
+            </mat-header-cell>
+            <mat-cell
+              class="component-mat-table__table-default-cell"
+              *matCellDef="let element"
+              [innerHtml]="sanitizer.bypassSecurityTrustHtml(col.mapText && col.mapText(element[col.col], element) || element[col.col])"
+              [class.pointer]="col.canClick()"
+              (click)="col.canClick() && col.onClick({row: element, col: col, table: this, event: $event});"
+            ></mat-cell>
+          </div>
+        </ng-container>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row class="" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- loading -->
+    <div *ngIf="(state | async).table.isLoading" class="component-mat-table__table--loading">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
+    <!-- 空数据 -->
+    <div *ngIf="(!(state | async).table.data.length) && !(state | async).table.isLoading" class="component-mat-table__table--no-data">
+      暂无数据
+    </div>
+
+    <div *ngIf="option.table.calc.length > 0 && _pagingData.length > 0" class="component-mat-table__table--total">
+      总计
+    </div>
+
+    <!-- 页脚 -->
+    <ng-container *ngIf="!option.paginator.hidden">
+      <mat-paginator
+        (page)="onPageChange($event)"
+        [length]="(state | async).paginator.length"
+        [pageIndex]="option.paginator.index"
+        [pageSize]="option.paginator.size"
+        [pageSizeOptions]="option.paginator.sizeOptions"
+      >
+      </mat-paginator>
+    </ng-container>
+  </div>
+</div>

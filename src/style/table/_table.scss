@@ -1,0 +1,152 @@
+@mixin _mat-table-theme($theme) {
+  $foreground: map-get($theme, foreground);
+  $backgorund: map-get($theme, background);
+
+
+  .component-mat-table {
+    &__container {
+      background-color: #fff;
+    }
+
+    &__addon {
+      &-container {
+        padding: 0 16px;
+        overflow: auto;
+        border-bottom: 1px solid map-get($foreground, divider);
+      }
+
+      &-title {
+        &-container {
+          padding-top: 16px;
+          margin-bottom: 16px;
+
+          font-size: 16px;
+          font-weight: 600;
+          color: map-get($foreground, text);
+        }
+      }
+
+      &-button[class] {
+        position: relative;
+        margin-left: 8px;
+        bottom: 3px;
+        line-height: 30px !important;
+      }
+
+      &-date {
+        margin-right: 24px;
+      }
+
+      &-right-container {
+        float: right;
+      }
+
+      &-right-cols-container {
+        display: inline-block;
+        margin: 0 16px;
+      }
+
+      &-right-btn-container {
+        display: inline-block;
+        margin: 16px 0;
+      }
+
+      &-right-filter {
+        display: inline-block;
+        margin-right: 16px;
+      }
+    }
+
+    &__table-col-sort {
+      &-container {
+        cursor: pointer;
+      }
+
+      &-arrow {
+        display: inline-block;
+        position: relative;
+        right: 4px;
+        transform: rotate(0deg);
+        transition: transform .3s;
+      }
+    }
+
+    &__table {
+      &-container {
+        margin: 24px 0;
+
+        &--selectable {
+          .mat-row {
+            position: relative;
+          }
+        }
+
+        .mat-cell {
+          justify-content: center;
+        }
+
+        .mat-header-cell {
+          justify-content: center;
+        }
+
+        .mat-header-row {
+          background-color: map-get($backgorund, background);
+        }
+      }
+
+      &--no-data {
+        text-align: center;
+        padding: 16px;
+        border-bottom: 1px solid map-get($foreground, divider);
+        color: map-get($foreground, disabled-text);
+      }
+
+      &--total {
+        height: 0;
+        position: relative;
+        top: -37.5px;
+        left: 4px;
+      }
+
+      &--loading {
+        display: flex;
+        justify-content: center;
+        padding: 16px;
+      }
+
+      &-header {
+        font-size: 16px;
+        font-weight: 600;
+        color: map-get($foreground, text);
+      }
+
+      &-edit {
+        &-cell {
+          padding: 1rem;
+        }
+      }
+
+      &-opt {
+        &-cell {
+          text-align: center;
+        }
+      }
+
+      &-btn-opt {
+        &-cell {
+          display: block;
+          white-space: nowrap;
+          overflow-x: auto;
+          padding: 8px;
+          text-align: center;
+        }
+
+        &-btn[class] {
+          display: inline-block;
+          margin: 0 8px;
+        }
+      }
+    }
+  }
+}
+

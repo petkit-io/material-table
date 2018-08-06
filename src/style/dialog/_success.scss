@@ -1,0 +1,19 @@
+@mixin _mat-dialog-success-theme($theme) {
+  .material-dialog-success-content {
+    &__wrapper {
+      text-align: center;
+
+      mat-icon {
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        margin-left: -18px;
+      }
+      div {
+        padding: 15px 0;
+      }
+    }
+
+  }
+}
+

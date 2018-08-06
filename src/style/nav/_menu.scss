@@ -1,0 +1,51 @@
+@mixin _mat-primary-menu-theme($theme) {
+  $foreground: map-get($theme, foreground);
+  $backgorund: map-get($theme, background);
+  $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
+  $warn: mat-color(map-get($theme, warn));
+
+  .component-menu {
+    &__primary {
+      &-container {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background-color: #3f454b;
+      }
+
+      &-link-container {
+        padding: 12px 0;
+        width: 1%;
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &-link {
+        border-radius: 20px;
+        color: white;
+        font-size: 18px;
+        font-weight: 400;
+        padding: 4px 24px;
+        text-align: center;
+        text-decoration: none;
+
+        &--active {
+          color: $primary;
+          border: 1px solid $primary;
+        }
+      }
+    }
+  }
+}
+
+@mixin _mat-menu-theme($theme) {
+  @include _mat-primary-menu-theme($theme);
+}
+

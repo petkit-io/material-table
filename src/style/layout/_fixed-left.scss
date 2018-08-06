@@ -1,0 +1,13 @@
+@mixin _mat-fixed-left-theme($theme) {
+  .component-layout-fixed-left {
+    &__container {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    &__main {
+      overflow: hidden;
+    }
+  }
+}
+

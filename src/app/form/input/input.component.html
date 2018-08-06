@@ -1,0 +1,16 @@
+<mat-form-field>
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'area'">
+      <textarea matInput [placeholder]="placeholder" [(ngModel)]="value"></textarea>
+    </ng-container>
+    <ng-container *ngSwitchCase="'areaAutosize'">
+      <textarea matInput matTextareaAutosize [matAutosizeMinRows]="min" [matAutosizeMaxRows]="max" [placeholder]="placeholder" [(ngModel)]="value"></textarea>
+    </ng-container>
+    <ng-container *ngSwitchCase="'input'">
+      <input matInput [placeholder]="placeholder" [(ngModel)]="value"/>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <input matInput [placeholder]="placeholder" [(ngModel)]="value"/>
+    </ng-container>
+  </ng-container>
+</mat-form-field>

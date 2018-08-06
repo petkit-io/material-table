@@ -1,0 +1,83 @@
+@import './material/material-theming';
+@import './material/material-icon';
+
+// global
+@import './global/global.scss';
+
+// support
+@import './support/grid';
+@import './support/support';
+@import './support/shortcut';
+
+// menu
+@import './nav/menu';
+
+// table
+@import './table/table';
+
+// upload
+@import './upload/image';
+
+// loading
+@import './loading/spinner';
+
+// layout
+@import './layout/panel';
+@import './layout/fixed-left';
+@import './layout/fixed-bottom';
+
+// date
+@import './date/date';
+
+// card
+@import './card/common';
+@import './card/check';
+@import './card/loading';
+
+// dialog
+@import './dialog/success';
+
+// calendar
+@import './calendar/calendar';
+
+// tree
+@import './tree/tree';
+
+// amap
+@import './amap/select';
+
+@mixin angular-material-theme-ext($theme) {
+  @include _mat-global-theme($theme);
+
+  @include flex-grid();
+  @include _mat-support-theme($theme);
+  @include _mat-shortcut-theme($theme);
+
+  @include _mat-menu-theme($theme);
+  @include _mat-table-theme($theme);
+
+  @include _mat-upload-theme($theme);
+  @include _mat-loading-theme($theme);
+
+  @include _mat-panel-theme($theme);
+  @include _mat-fixed-left-theme($theme);
+  @include _mat-fixed-bottom-theme($theme);
+
+  @include _mat-card-common-theme($theme);
+  @include _mat-card-check-modal-theme($theme);
+  @include _mat-card-loading-theme($theme);
+
+  @include _mat-dialog-success-theme($theme);
+
+  @include _bs-date($theme);
+
+  @include _mat-calendar-ext-theme($theme);
+
+  @include _mat-tree-ext-theme($theme);
+
+  @include _mat-amap-select-theme($theme);
+
+  // 需要放在最后 extend 先后关系依赖
+  @include _angular-material-theme($theme);
+}
+

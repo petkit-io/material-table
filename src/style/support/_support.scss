@@ -1,0 +1,27 @@
+@mixin _mat-support-theme($theme) {
+  .pointer {
+    cursor: pointer;
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hoverable {
+    transition: box-shadow .25s;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .24), 0 0 2px 0 rgba(0, 0, 0, .12);
+
+    &:hover {
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+    }
+  }
+
+  .flex-cc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+

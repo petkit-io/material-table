@@ -1,0 +1,29 @@
+@import '../text/text';
+
+@mixin _mat-panel-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .component-mat-panel {
+    &__container {
+      background-color: map-get($background, card);
+      display: block;
+      height: 100%;
+      padding: 16px;
+    }
+
+    &__header {
+      width: 100%;
+      // padding: 16px;
+
+      @include text-title();
+    }
+
+    &__content {
+      display: block;
+    }
+  }
+}

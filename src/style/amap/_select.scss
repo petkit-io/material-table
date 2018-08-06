@@ -1,0 +1,44 @@
+@mixin _mat-amap-select-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-amap-select {
+    &__autocomplete[class] {
+      max-height: 288px;
+    }
+
+    &__input[class] {
+      display: block;
+    }
+
+    &__amap {
+      height: 400px;
+    }
+
+    &__option {
+      &--no-data[class] {
+        text-align: center;
+        color: #bbb;
+      }
+
+      &--paging[class] {
+        padding: 0;
+      }
+
+      &-address {
+        color: map-get($foreground, hint-text);
+        font-size: 14px;
+      }
+    }
+  }
+
+  .mat-amap {
+    .mat-autocomplete-panel {
+      max-height: 288px;
+    }
+  }
+}
+

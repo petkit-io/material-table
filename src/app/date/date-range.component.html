@@ -1,0 +1,29 @@
+<mat-form-field>
+  <mat-icon color="color-icon" matPrefix>date_range</mat-icon>
+
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'range'">
+      <input
+        class="component-date__input"
+        matInput
+        bsDaterangepicker
+        [placeholder]="placeholder"
+        [(bsValue)]="value"
+        [bsConfig]="bsConfig"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="'picker'">
+      <input
+        class="component-date__input"
+        matInput
+        bsDatepicker
+        [placeholder]="placeholder"
+        [(bsValue)]="value"
+        [bsConfig]="bsConfig"
+      />
+    </ng-container>
+  </ng-container>
+
+  <mat-icon color="color-icon" matSuffix>expand_more</mat-icon>
+</mat-form-field>
+
