@@ -1,6 +1,6 @@
 {
   "name": "@petkit-io/material-table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "material table",
   "main": "index.js",
   "scripts": {
